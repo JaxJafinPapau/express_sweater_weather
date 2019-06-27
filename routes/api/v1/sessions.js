@@ -14,8 +14,15 @@ router.post('/', function(req, res, next) {
       email: req.body.email
     }
   }).then(user => {
-    res.setHeader("Content-Type", "application/json");
-    res.status(200).send(JSON.stringify({ api_key: user.api_key }))
+    bcrypt.compare(req.body.password, user.password).then( result => {
+      if(result) {
+        res.setHeader("Content-Type", "application/json");
+        res.status(200).send(JSON.stringify({ api_key: user.api_key }));
+      } else {
+        res.setHeader("Content-Type", "application/json");
+        res.status(401).send({error: "Incorrect password"});
+      }
+    });
   }).catch(error => {
     res.setHeader("Content-Type", "application/json");
     res.status(401).send({ error });
