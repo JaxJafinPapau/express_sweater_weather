@@ -7,10 +7,12 @@ const saltRounds = 9;
 
 /* POST new user. */
 router.post('/', function(req, res, next) {
+  /* Encrypts the new password before anything else */
   bcrypt.hash(req.body.password, saltRounds, function(error, hashed_password) {
     User.create({
       email: req.body.email,
       password: hashed_password,
+      /* Generates a random api key using the uuidv1 package */
       api_key: uuidv1()
     }).then(user => {
       res.setHeader("Content-Type", "application/json");
