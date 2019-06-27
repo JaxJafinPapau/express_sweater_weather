@@ -4,8 +4,6 @@ var User = require('../../../models').User;
 var session = require('express-session');
 var bcrypt = require('bcrypt')
 
-var pry = require('pryjs');
-
 /* POST new session (Login) */
 
 router.post('/', function(req, res, next) {
