@@ -4,7 +4,6 @@ var uuidv1 = require('uuid/v1');
 var User = require('../../../models').User;
 var bcrypt = require('bcrypt')
 const saltRounds = 9;
-var pry = require('pryjs');
 
 /* POST new user. */
 router.post('/', function(req, res, next) {
