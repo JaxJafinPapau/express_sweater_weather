@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var User = require('../../../models').User;
+const fetch = require('node-fetch')
 
 var pry = require('pryjs')
 
