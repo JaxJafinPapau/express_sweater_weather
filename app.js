@@ -3,6 +3,8 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
+var services = require('./services')
+
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/api/v1/users');
 var sessionsRouter = require('./routes/api/v1/sessions');
