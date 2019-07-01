@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var User = require('../../../models').User
 var services = require('../../../services')
+var serializers = require('../../../serializers')
 
 var pry = require('pryjs')
 
@@ -14,24 +15,17 @@ router.get('/', async function(req, res, next) {
   let rawLocation = await req.url.replace('/?location=', '')
   let geocodeService = new services.GoogleGeocodingService(rawLocation)
   let location = await geocodeService.getLatLong()
-  let weather = new services.DarkSkyService(location.latitude, location.longitude)
+  let weather = new services.DarkSkyService(rawLocation, location.latitude, location.longitude)
   let forecast = await weather.getWeather()
+  let error = { error: "Invalid API key." }
+  let serilized_forecast = new serializers.ForecastSerializer(forecast)
+
 
   if(user != null ) {
-    res.status(200).send(forecast)
+    res.status(200).send(serialized_forecast)
   } else {
-    res.status(401).send("Invalid API key.")
+    res.status(401).send(error)
   }
-
-  // .then(user => {
-  //   var latLong = new services.GoogleGeocodingService(rawLocation)
-  //   return latLong
-  // }).then(rawLocation => {
-  //   return new services.DarkSkyService(rawLocation.latitude, rawLocation.longitude)
-  // }).catch(error => {
-  //   res.setHeader("Content-Type", "application/json");
-  //   res.status(401).send({ error })
-  // })
 })
 
 module.exports = router;
