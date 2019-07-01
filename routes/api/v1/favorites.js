@@ -3,8 +3,6 @@ var router = express.Router();
 var User = require('../../../models').User
 var Favorite = require('../../../models').Favorite
 
-var pry = require('pryjs')
-
 router.post('/', async function(req, res, next) {
   let user = await User.findOne({
     where: {
