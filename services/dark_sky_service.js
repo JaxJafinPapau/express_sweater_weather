@@ -12,7 +12,6 @@ module.exports = class DarkSkyService {
   async getWeather() {
     let response = await fetch(`https://api.darksky.net/forecast/${process.env.DARKSKY_API_KEY}/${this.latitude},${this.longitude}`)
     let data = await response.json()
-    eval(pry.it)
     this.currently = await data.currently
     this.hourly = await data.hourly
     this.daily = await data.daily
