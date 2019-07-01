@@ -4,7 +4,7 @@ module.exports = (sequelize, DataTypes) => {
     location: DataTypes.STRING
   }, {});
   Favorite.associate = function(models) {
-    // associations can be defined here
+    Favorite.belongsTo(models.User)
   };
   return Favorite;
 };
