@@ -4,8 +4,6 @@ var User = require('../../../models').User
 var services = require('../../../services')
 var serializers = require('../../../serializers')
 
-var pry = require('pryjs')
-
 router.get('/', async function(req, res, next) {
   let user = await User.findOne({
     where: {
@@ -18,11 +16,10 @@ router.get('/', async function(req, res, next) {
   let weather = new services.DarkSkyService(rawLocation, location.latitude, location.longitude)
   let forecast = await weather.getWeather()
   let error = { error: "Invalid API key." }
-  let serilized_forecast = new serializers.ForecastSerializer(forecast)
-
+  let serializedForecast = new serializers.ForecastSerializer(forecast)
 
   if(user != null ) {
-    res.status(200).send(serialized_forecast)
+    res.status(200).send(serializedForecast.serializeForecast())
   } else {
     res.status(401).send(error)
   }
