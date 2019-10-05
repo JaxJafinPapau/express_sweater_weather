@@ -1,7 +1,5 @@
 const fetch = require('node-fetch')
 
-var pry = require('pryjs')
-
 module.exports = class DarkSkyService {
   constructor(userLocation, latitude, longitude) {
     this.location = userLocation
